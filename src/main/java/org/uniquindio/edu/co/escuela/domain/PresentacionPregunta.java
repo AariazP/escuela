@@ -24,9 +24,6 @@ public class PresentacionPregunta {
     @EqualsAndHashCode.Include
     private boolean respuestaCorrecta;
 
-
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_presentacion_examen")
     private PresentacionExamen presentacionExamen;
