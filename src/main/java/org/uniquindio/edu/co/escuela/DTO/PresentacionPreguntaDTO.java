@@ -11,11 +11,8 @@ public record PresentacionPreguntaDTO(
 
 
 
-        // boolean fueCorrecta -- Se omite este atributo porque al alumno no le incumbe eso
+        boolean respuestaCorrecta,
 
-        PresentacionPreguntaDTO presentacionPreguntaPadre,
-
-        List<PresentacionPreguntaDTO> subRespuestas,
 
         PresentacionExamenDTO presentacionExamen,
 
