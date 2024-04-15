@@ -20,7 +20,7 @@ public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long respuestaId;
+    private Long idRespuesta;
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include
@@ -31,7 +31,7 @@ public class Respuesta {
     private boolean esVerdadera;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pregunta_id")
+    @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 
     @OneToMany(mappedBy = "respuesta", fetch = FetchType.LAZY)

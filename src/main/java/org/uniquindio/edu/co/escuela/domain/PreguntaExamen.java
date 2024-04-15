@@ -31,7 +31,7 @@ public class PreguntaExamen {
     private boolean tieneTiempoMaximo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pregunta_id")
+    @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 
     @ManyToOne(fetch = FetchType.LAZY)

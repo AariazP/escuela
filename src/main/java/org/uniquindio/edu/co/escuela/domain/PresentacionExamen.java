@@ -19,7 +19,7 @@ public class PresentacionExamen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long presentacionId;
+    private Long idPresentacionExamen;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include

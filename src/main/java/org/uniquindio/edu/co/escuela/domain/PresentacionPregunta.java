@@ -18,30 +18,25 @@ public class PresentacionPregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long presentacionPreguntaId;
+    private Long idPresentacionPregunta;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private boolean fueCorrecta;
+    private boolean respuestaCorrecta;
 
-    // Relación para subrespuestas
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "presentacion_pregunta_padre_id") // Nombre de la columna que referencia a la presentación pregunta padre
-    private PresentacionPregunta presentacionPreguntaPadre;
 
-    @OneToMany(mappedBy = "presentacionPreguntaPadre", fetch = FetchType.LAZY)
-    private List<PresentacionPregunta> subRespuestas;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "presentacion_examen_id")
+    @JoinColumn(name = "id_presentacion_examen")
     private PresentacionExamen presentacionExamen;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pregunta_id")
+    @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "respuesta_id")
+    @JoinColumn(name = "id_respuesta")
     private Respuesta respuesta;
 
 }
