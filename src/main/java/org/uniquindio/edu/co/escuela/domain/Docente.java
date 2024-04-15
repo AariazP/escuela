@@ -36,7 +36,7 @@ public class Docente {
     private List<Grupo> grupos;
 
     @OneToMany(mappedBy = "docente", fetch = FetchType.LAZY)
-    private List<Examen> cursos;
+    private List<Examen> examenes;
 
     @OneToMany(mappedBy = "docente", fetch = FetchType.LAZY)
     private List<Pregunta> preguntas;

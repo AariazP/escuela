@@ -15,6 +15,9 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BloqueHorario {
 
+    //hora inicio, hora fin, dia y lugar
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
