@@ -18,7 +18,7 @@ public class Docente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long docenteId;
+    private Long idDocente;
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include
