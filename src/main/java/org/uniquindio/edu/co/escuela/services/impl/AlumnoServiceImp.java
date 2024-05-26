@@ -16,27 +16,7 @@ public class AlumnoServiceImp implements AlumnoService {
 
     private final EntityManager entityManager;
 
-    @Transactional
-    public TokenDTO login(SesionDTO user) {
 
-        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("login");
-
-        storedProcedure.registerStoredProcedureParameter("email", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("password", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("p_id_usuario", Integer.class, ParameterMode.OUT);
-        storedProcedure.registerStoredProcedureParameter("p_email", String.class, ParameterMode.OUT);
-
-        storedProcedure.setParameter("email", user.email());
-        storedProcedure.setParameter("password", user.password());
-
-        storedProcedure.execute();
-
-        Integer idUsuario = (Integer) storedProcedure.getOutputParameterValue("p_id_usuario");
-        String email = (String) storedProcedure.getOutputParameterValue("p_email");
-
-        // Retornar un objeto TokenDTO con los valores obtenidos
-        return new TokenDTO(idUsuario, email);
-    }
 
 
     @Transactional

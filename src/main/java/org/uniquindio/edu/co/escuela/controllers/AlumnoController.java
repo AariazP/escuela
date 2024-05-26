@@ -18,13 +18,7 @@ public class AlumnoController {
 
 
 
-    @PostMapping("/login")
-    public ResponseEntity<MensajeDTO<TokenDTO>> login(@RequestBody SesionDTO loginDTO )  throws Exception {
 
-        TokenDTO tokenDTO = alumnoService.login(loginDTO);
-
-        return ResponseEntity.ok().body(new MensajeDTO<>(false, tokenDTO));
-    }
 
     @PostMapping("/guardar-pregunta")
     public ResponseEntity<MensajeDTO<String>> guardarPregunta(@RequestBody PreguntaDTO preguntaDTO) {
