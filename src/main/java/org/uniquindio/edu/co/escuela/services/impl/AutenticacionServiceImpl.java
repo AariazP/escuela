@@ -18,7 +18,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
     @Transactional
     @Override
-    public Long login(LoginDTO user) {
+    public Character login(LoginDTO user) {
 
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("login");
 
@@ -31,7 +31,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
         storedProcedure.execute();
 
-        return (Long) storedProcedure.getOutputParameterValue("res");
+        return (Character) storedProcedure.getOutputParameterValue("res");
     }
 
 

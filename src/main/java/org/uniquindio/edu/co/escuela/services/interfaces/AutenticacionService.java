@@ -4,6 +4,6 @@ import org.uniquindio.edu.co.escuela.DTO.LoginDTO;
 
 public interface AutenticacionService {
 
-    Long login(LoginDTO sesionDTO);
+    Character login(LoginDTO sesionDTO);
 
 }
