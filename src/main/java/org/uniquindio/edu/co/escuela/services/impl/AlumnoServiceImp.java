@@ -8,24 +8,13 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.*;
-import org.uniquindio.edu.co.escuela.domain.Alumno;
-import org.uniquindio.edu.co.escuela.repositories.AlumnoRepository;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Service
 @AllArgsConstructor
 public class AlumnoServiceImp implements AlumnoService {
 
-    private final AlumnoRepository alumnoRepository;
     private final EntityManager entityManager;
-
-
-
-
 
     @Transactional
     public TokenDTO login(SesionDTO user) {
