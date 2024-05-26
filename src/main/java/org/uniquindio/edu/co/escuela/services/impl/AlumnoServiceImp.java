@@ -16,9 +16,6 @@ public class AlumnoServiceImp implements AlumnoService {
 
     private final EntityManager entityManager;
 
-
-
-
     @Transactional
     public String guardarPregunta(PreguntaDTO preguntaDTO) {
         // Crear una consulta para el procedimiento almacenado

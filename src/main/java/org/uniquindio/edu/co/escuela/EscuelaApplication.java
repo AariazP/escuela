@@ -11,7 +11,4 @@ public class EscuelaApplication  {
         SpringApplication.run(EscuelaApplication.class, args);
 
     }
-
-
-
 }

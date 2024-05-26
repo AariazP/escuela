@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.LoginDTO;
-import org.uniquindio.edu.co.escuela.DTO.TokenDTO;
 import org.uniquindio.edu.co.escuela.services.interfaces.AutenticacionService;
 
 @AllArgsConstructor
@@ -19,24 +18,20 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
     @Transactional
     @Override
-    public TokenDTO login(LoginDTO user) {
+    public Long login(LoginDTO user) {
 
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("login");
 
-        storedProcedure.registerStoredProcedureParameter("email", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("password", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("p_id_usuario", Integer.class, ParameterMode.OUT);
-        storedProcedure.registerStoredProcedureParameter("p_email", String.class, ParameterMode.OUT);
+        storedProcedure.registerStoredProcedureParameter("id", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("rol", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", Integer.class, ParameterMode.OUT);
 
-        storedProcedure.setParameter("email", user.email());
-        storedProcedure.setParameter("password", user.password());
+        storedProcedure.setParameter("id", user.id());
+        storedProcedure.setParameter("rol", user.rol());
 
         storedProcedure.execute();
 
-        Integer idUsuario = (Integer) storedProcedure.getOutputParameterValue("p_id_usuario");
-        String email = (String) storedProcedure.getOutputParameterValue("p_email");
-
-        return new TokenDTO(idUsuario, email);
+        return (Long) storedProcedure.getOutputParameterValue("res");
     }
 
 
