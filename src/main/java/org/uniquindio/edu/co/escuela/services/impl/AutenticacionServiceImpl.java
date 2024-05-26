@@ -6,8 +6,7 @@ import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.uniquindio.edu.co.escuela.DTO.SesionDTO;
+import org.uniquindio.edu.co.escuela.DTO.LoginDTO;
 import org.uniquindio.edu.co.escuela.DTO.TokenDTO;
 import org.uniquindio.edu.co.escuela.services.interfaces.AutenticacionService;
 
@@ -20,7 +19,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
     @Transactional
     @Override
-    public TokenDTO login(SesionDTO user) {
+    public TokenDTO login(LoginDTO user) {
 
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("login");
 

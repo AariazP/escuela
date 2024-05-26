@@ -1,10 +1,10 @@
 package org.uniquindio.edu.co.escuela.services.interfaces;
 
-import org.uniquindio.edu.co.escuela.DTO.SesionDTO;
+import org.uniquindio.edu.co.escuela.DTO.LoginDTO;
 import org.uniquindio.edu.co.escuela.DTO.TokenDTO;
 
 public interface AutenticacionService {
 
-    TokenDTO login(SesionDTO sesionDTO);
+    TokenDTO login(LoginDTO sesionDTO);
 
 }

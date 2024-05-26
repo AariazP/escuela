@@ -1,6 +1,6 @@
 package org.uniquindio.edu.co.escuela.DTO;
 
-public record SesionDTO(
+public record LoginDTO(
         String email,
         String password
 ) {
