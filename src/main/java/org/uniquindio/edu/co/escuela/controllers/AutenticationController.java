@@ -17,7 +17,7 @@ public class AutenticationController {
     private final AutenticacionService autenticacionService;
 
     @PostMapping("/login")
-    public ResponseEntity<MensajeDTO<?>> login(@RequestBody LoginDTO loginDTO ){
+    public ResponseEntity<MensajeDTO<Boolean>> login(@RequestBody LoginDTO loginDTO ){
 
         if (loginDTO.rol() == null || loginDTO.id() == null) {
             return ResponseEntity.badRequest().body(new MensajeDTO<>(true, "Credenciales invalidas", false));

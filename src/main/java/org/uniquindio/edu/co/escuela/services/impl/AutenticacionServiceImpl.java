@@ -24,7 +24,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
         storedProcedure.registerStoredProcedureParameter("id", String.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("rol", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("res", Integer.class, ParameterMode.OUT);
+        storedProcedure.registerStoredProcedureParameter("res", Character.class, ParameterMode.OUT);
 
         storedProcedure.setParameter("id", user.id());
         storedProcedure.setParameter("rol", user.rol());
