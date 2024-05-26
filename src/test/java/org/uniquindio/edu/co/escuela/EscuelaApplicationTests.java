@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.uniquindio.edu.co.escuela.domain.Docente;
-import org.uniquindio.edu.co.escuela.repositorios.DocenteRepo;
+import org.uniquindio.edu.co.escuela.repositories.DocenteRepo;
 
 @SpringBootTest
 class EscuelaApplicationTests {

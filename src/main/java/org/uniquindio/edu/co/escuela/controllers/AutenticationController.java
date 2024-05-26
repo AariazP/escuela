@@ -1,4 +1,4 @@
-package org.uniquindio.edu.co.escuela.controladores;
+package org.uniquindio.edu.co.escuela.controllers;
 
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,6 @@ public class AutenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<MensajeDTO<TokenDTO>> login( @RequestBody SesionDTO loginDTO )  throws Exception {
-
 
         TokenDTO tokenDTO = autenticacionServicio.login(loginDTO);
 
