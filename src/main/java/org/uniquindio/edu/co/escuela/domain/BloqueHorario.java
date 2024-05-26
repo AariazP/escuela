@@ -5,9 +5,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -23,23 +20,25 @@ public class BloqueHorario {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bloque_seq")
+    @SequenceGenerator(name = "bloque_seq", sequenceName = "BLOQUE_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long bloqueId;
+    private Long id_bloque_horario;
 
-    @Column(nullable = false, length = 63)
+
+    @Column( length = 63)
     @EqualsAndHashCode.Include
     private String lugar;
 
-    @Column(nullable = false)
+    @Column
     @EqualsAndHashCode.Include
     private char dia;
 
-    @Column(nullable = false)
+    @Column
     @EqualsAndHashCode.Include
     private Timestamp horaInicio;
 
-    @Column(nullable = false)
+    @Column
     @EqualsAndHashCode.Include
     private Timestamp horaFin;
 

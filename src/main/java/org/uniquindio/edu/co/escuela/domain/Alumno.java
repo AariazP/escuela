@@ -17,9 +17,11 @@ public class Alumno {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "alumno_seq")
+    @SequenceGenerator(name = "alumno_seq", sequenceName = "ALUMNO_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long alumnoId;
+    private Long idAlumno;
+
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include

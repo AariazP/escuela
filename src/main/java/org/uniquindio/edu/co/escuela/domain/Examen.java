@@ -16,13 +16,15 @@ import java.util.List;
 public class Examen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "examen_seq")
+    @SequenceGenerator(name = "examen_seq", sequenceName = "EXAMEN_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long examenId;
+    private Long idExamen;
+
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private Integer tiempoMaximo;
+    private Integer tiempoMax;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
@@ -36,9 +38,6 @@ public class Examen {
     @EqualsAndHashCode.Include
     private String nombre;
 
-    @Column(nullable=false)
-    @EqualsAndHashCode.Include
-    private String descripcion;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
@@ -50,25 +49,29 @@ public class Examen {
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private LocalDate fechaHoraLimite;
+    private LocalDate fechaHoraFin;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private Integer numeroPreguntasAleatorias;
+    private Integer numPreguntasAleatorias;
+
+    @Column (nullable=false)
+    @EqualsAndHashCode.Include
+    private String estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grupo_id")
+    @JoinColumn(name = "id_grupo")
     private Grupo grupo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docente_id")
+    @JoinColumn(name = "id_docente")
     private Docente docente;
 
     @OneToMany(mappedBy = "examen", fetch = FetchType.LAZY)
     private List<PresentacionExamen> preguntas;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tema_id")
+    @JoinColumn(name = "id_tema")
     private Tema tema;
 
     @OneToMany(mappedBy = "examen", fetch = FetchType.LAZY)

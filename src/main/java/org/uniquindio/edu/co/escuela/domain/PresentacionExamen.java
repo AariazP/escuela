@@ -17,9 +17,11 @@ import java.util.List;
 public class PresentacionExamen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presentacion_examen_seq")
+    @SequenceGenerator(name = "presentacion_examen_seq", sequenceName = "PRESENTACION_EXAMEN_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
     private Long idPresentacionExamen;
+
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
@@ -27,26 +29,26 @@ public class PresentacionExamen {
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private boolean presentado;
+    private char terminado;
 
-    @Column(nullable=false)
+    @Column
     @EqualsAndHashCode.Include
-    private Double calificacion;
+    private Float calificacion;
 
-    @Column(nullable=false, length=12)
+    @Column(length=12)
     @EqualsAndHashCode.Include
-    private Double ipSource;
+    private String ipSource;
 
-    @Column(nullable=false)
+    @Column
     @EqualsAndHashCode.Include
-    private LocalDate fechaPresentacion;
+    private LocalDate fecha_hora_presentacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "alumno_id")
+    @JoinColumn(name = "id_alumno")
     private  Alumno alumno;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "examen_id")
+    @JoinColumn(name = "id_examen")
     private Examen examen;
 
     @OneToMany(mappedBy = "presentacionExamen", fetch = FetchType.LAZY)

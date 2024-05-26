@@ -18,7 +18,8 @@ import java.util.List;
 public class Respuesta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "respuesta_seq")
+    @SequenceGenerator(name = "respuesta_seq", sequenceName = "RESPUESTA_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
     private Long idRespuesta;
 
@@ -28,7 +29,7 @@ public class Respuesta {
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include
-    private boolean esVerdadera;
+    private Character esVerdadera;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pregunta")

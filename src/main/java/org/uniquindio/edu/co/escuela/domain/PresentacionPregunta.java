@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,13 +14,15 @@ import java.util.List;
 public class PresentacionPregunta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presentacion_pregunta_seq")
+    @SequenceGenerator(name = "presentacion_pregunta_seq", sequenceName = "PRESENTACION_PREGUNTA_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
     private Long idPresentacionPregunta;
 
+
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private boolean respuestaCorrecta;
+    private char respuestaCorrecta;
 
 
 

@@ -11,30 +11,30 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
+@IdClass(PreguntaExamenId.class)
 public class PreguntaExamen {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long preguntaExamenId;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
     private Double porcentajeExamen;
 
-    @Column(nullable=false)
+    @Column
     @EqualsAndHashCode.Include
     private Integer tiempoPregunta;
 
     @Column(nullable=false)
     @EqualsAndHashCode.Include
-    private boolean tieneTiempoMaximo;
+    private char tieneTiempoMaximo;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "examen_id")
+    @JoinColumn(name = "id_examen")
     private Examen examen;
 }

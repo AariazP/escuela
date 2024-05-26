@@ -16,9 +16,10 @@ import java.util.List;
 public class Tema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tema_seq")
+    @SequenceGenerator(name = "tema_seq", sequenceName = "TEMA_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long temaId;
+    private Long id_tema;
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include
@@ -32,5 +33,9 @@ public class Tema {
     private List<Examen> examenes;
 
     @OneToMany(mappedBy = "tema", fetch = FetchType.LAZY)
-    private List<Pregunta> unidades;
+    private List<Pregunta> preguntas;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unidad_id_unidad")
+    private Unidad unidad;
 }

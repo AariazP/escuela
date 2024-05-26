@@ -16,9 +16,11 @@ import java.util.List;
 public class Curso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curso_seq")
+    @SequenceGenerator(name = "curso_seq", sequenceName = "CURSO_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long cursoId;
+    private Long id_curso;
+
 
     @EqualsAndHashCode.Include
     @Column(nullable = false, length = 63)
@@ -32,7 +34,7 @@ public class Curso {
     private List<Grupo> grupos;
 
     @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
-    private List<Unidades> unidades;
+    private List<Unidad> unidades;
 
 
 }

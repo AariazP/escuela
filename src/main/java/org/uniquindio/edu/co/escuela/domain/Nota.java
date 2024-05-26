@@ -14,16 +14,18 @@ import lombok.experimental.SuperBuilder;
 public class Nota {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nota_seq")
+    @SequenceGenerator(name = "nota_seq", sequenceName = "NOTA_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long notaId;
+    private Long idNota;
+
 
     @EqualsAndHashCode.Include
     @Column(nullable = false, length = 63)
     private Double valor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "alumno_id")
+    @JoinColumn(name = "id_alumno")
     private Alumno alumno;
 
     @ManyToOne(fetch = FetchType.LAZY)

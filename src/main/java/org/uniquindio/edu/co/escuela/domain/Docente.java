@@ -16,9 +16,11 @@ import java.util.List;
 public class Docente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "docente_seq")
+    @SequenceGenerator(name = "docente_seq", sequenceName = "DOCENTE_SEQ", allocationSize = 1)
     @EqualsAndHashCode.Include
-    private Long idDocente;
+    private Integer idDocente;
+
 
     @Column(nullable = false, length = 63)
     @EqualsAndHashCode.Include
