@@ -6,13 +6,7 @@ import java.util.List;
 
 public interface AlumnoService {
 
-
-
-    Long presentarExamen (PresentacionExamenDTO presentacionExamenDTO);
-
-    Long presentarPregunta(PresentacionPreguntaDTO presentacionPreguntaDTO);
-
-    List<AlumnoDTO> listarAlumnos();
-
     TokenDTO login(SesionDTO user);
+
+    String guardarPregunta(PreguntaDTO preguntaDTO);
 }
