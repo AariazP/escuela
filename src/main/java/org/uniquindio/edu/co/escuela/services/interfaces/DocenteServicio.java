@@ -1,4 +1,4 @@
-package org.uniquindio.edu.co.escuela.servicios.interfaces;
+package org.uniquindio.edu.co.escuela.services.interfaces;
 
 import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaDTO;

@@ -1,4 +1,4 @@
-package org.uniquindio.edu.co.escuela.servicios.impl;
+package org.uniquindio.edu.co.escuela.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.SesionDTO;
 import org.uniquindio.edu.co.escuela.DTO.TokenDTO;
 import org.uniquindio.edu.co.escuela.repositories.DocenteRepo;
-import org.uniquindio.edu.co.escuela.servicios.interfaces.AutenticacionServicio;
+import org.uniquindio.edu.co.escuela.services.interfaces.AutenticacionServicio;
 
 @AllArgsConstructor
 @Service

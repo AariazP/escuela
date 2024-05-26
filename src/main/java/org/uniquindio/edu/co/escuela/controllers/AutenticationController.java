@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.uniquindio.edu.co.escuela.DTO.MensajeDTO;
 import org.uniquindio.edu.co.escuela.DTO.SesionDTO;
 import org.uniquindio.edu.co.escuela.DTO.TokenDTO;
-import org.uniquindio.edu.co.escuela.servicios.interfaces.AutenticacionServicio;
+import org.uniquindio.edu.co.escuela.services.interfaces.AutenticacionServicio;
 
 @RestController
 @RequestMapping("/api/auth")

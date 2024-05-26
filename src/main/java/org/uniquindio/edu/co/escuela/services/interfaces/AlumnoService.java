@@ -1,8 +1,8 @@
-package org.uniquindio.edu.co.escuela.servicios.interfaces;
+package org.uniquindio.edu.co.escuela.services.interfaces;
 
+import org.uniquindio.edu.co.escuela.DTO.AlumnoDTO;
 import org.uniquindio.edu.co.escuela.DTO.PresentacionExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.PresentacionPreguntaDTO;
-import org.uniquindio.edu.co.escuela.domain.Alumno;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface AlumnoService {
 
     Long presentarPregunta(PresentacionPreguntaDTO presentacionPreguntaDTO);
 
-    List<Alumno> listarAlumnos();
+    List<AlumnoDTO> listarAlumnos();
 }
