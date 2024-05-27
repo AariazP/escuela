@@ -1,6 +1,8 @@
 package org.uniquindio.edu.co.escuela.services.interfaces;
 
 import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
+import org.uniquindio.edu.co.escuela.DTO.ExamenHechoDTO;
+import org.uniquindio.edu.co.escuela.DTO.ExamenPendienteDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaDTO;
 
 import java.util.Date;
@@ -21,4 +23,8 @@ public interface AlumnoService {
                                     Date fecha_hora_presentacion, Integer id_examen, Integer id_alumno );
 
     List<CursoDTO> obtenerCursos(String id, String rol);
+
+    List<ExamenPendienteDTO> obtenerExamenesPendiente(String id, Integer idGrupo);
+
+    List<ExamenHechoDTO> obtenerExamenesHechos(String id, Integer idGrupo);
 }
