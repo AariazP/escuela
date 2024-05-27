@@ -9,6 +9,7 @@ import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 @RestController
 @RequestMapping("/api/estudiante")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class AlumnoController {
 
     private final AlumnoService alumnoService;
