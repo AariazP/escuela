@@ -1,9 +1,7 @@
 package org.uniquindio.edu.co.escuela.services.impl;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
@@ -14,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -135,7 +136,7 @@ public class AlumnoServiceImp implements AlumnoService {
 
 
     @Override
-    public CursoDTO obtenerCursos(String id, String rol) {
+    public List<CursoDTO> obtenerCursos(String id, String rol) {
 
         // Crear una consulta para el procedimiento almacenado
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_grupos_por_usuario");
@@ -153,27 +154,11 @@ public class AlumnoServiceImp implements AlumnoService {
         storedProcedure.execute();
 
         String json1 = (String) storedProcedure.getOutputParameterValue("res");
-        System.out.println(json1);
-        JsonParser parser = new JsonParser();
 
-        // Obtain Array
-        JsonArray gsonArr = parser.parse(json1).getAsJsonArray();
-        CursoDTO curso = null;
-        // for each element of array
-        for (JsonElement obj : gsonArr) {
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<CursoDTO>>() {}.getType();
 
-            // Object of array
-            JsonObject gsonObj = obj.getAsJsonObject();
-            String id_grupo = gsonObj.get("id_grupo").getAsString();
-            String nombre_grupo = gsonObj.get("nombre_grupo").getAsString();
-            String nombre_curso = gsonObj.get("nombre_curso").getAsString();
-
-            curso = new CursoDTO(id_grupo, nombre_grupo, nombre_curso);
-
-
-        }
-
-        return curso;
+        return gson.fromJson(json1, personListType);
     }
 
 

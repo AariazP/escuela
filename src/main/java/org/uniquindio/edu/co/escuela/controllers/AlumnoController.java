@@ -9,6 +9,8 @@ import org.uniquindio.edu.co.escuela.DTO.PreguntaDTO;
 import org.uniquindio.edu.co.escuela.DTO.PresentacionExamenDTO;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/estudiante")
 @AllArgsConstructor
@@ -42,7 +44,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/cursos/{id}/{rol}")
-    public ResponseEntity<MensajeDTO<CursoDTO>> obtenerCursos(@PathVariable String id, @PathVariable String rol) {
+    public ResponseEntity<MensajeDTO<List<CursoDTO>>> obtenerCursos(@PathVariable String id, @PathVariable String rol) {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.obtenerCursos(id, rol)));
     }
 
