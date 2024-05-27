@@ -9,6 +9,7 @@ import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 @RestController
 @RequestMapping("/api/estudiante")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class AlumnoController {
 
     private final AlumnoService alumnoService;
@@ -18,4 +19,8 @@ public class AlumnoController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.guardarPregunta(preguntaDTO)));
     }
 
+    @GetMapping("/nombre/{id}/{rol}")
+    public ResponseEntity<MensajeDTO<String>> obtenerNombre(@PathVariable String id, @PathVariable String rol) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.obtenerNombre(id, rol)));
+    }
 }
