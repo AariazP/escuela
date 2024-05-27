@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 
+import java.util.Date;
+
 @Service
 @AllArgsConstructor
 public class AlumnoServiceImp implements AlumnoService {
@@ -46,9 +48,62 @@ public class AlumnoServiceImp implements AlumnoService {
         return mensaje;
 
     }
+    @Transactional
+    @Override
+    public Float obtenerNotaPresentacionExamen(Long id_presentacion_examen) {
+            // Crear una consulta para el procedimiento almacenado
+            StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("obtener_nota");
+
+            // Registrar los parámetros de entrada y salida del procedimiento almacenado
+            storedProcedure.registerStoredProcedureParameter("v_id_presentacion_examen", Integer.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_nota", Float.class, ParameterMode.OUT);
+
+            // Establecer los valores de los parámetros de entrada
+            storedProcedure.setParameter("v_id_presentacion_examen", id_presentacion_examen);
+
+            // Ejecutar el procedimiento almacenado
+            storedProcedure.execute();
+
+            // Obtener el valor del parámetro de salida
+            Float nota = (Float) storedProcedure.getOutputParameterValue("v_nota");
+
+            // Retornar la nota
+            return nota != null ? nota : 0.0f;
+        }
+    @Transactional
+    @Override
+    public String crearPresentacionExamen(Integer tiempo, Character terminado, String ip_source, Date fecha_hora_presentacion, Integer id_examen, Integer id_alumno) {
 
 
+            // Crear una consulta para el procedimiento almacenado
+            StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("crear_presentacion_examen");
 
+            // Registrar los parámetros de entrada y salida del procedimiento almacenado
+            storedProcedure.registerStoredProcedureParameter("v_tiempo", Integer.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_terminado", Character.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_ip", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_fecha_hora_presentacion", Date.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_id_examen", Integer.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_id_alumno", Integer.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("v_mensaje", String.class, ParameterMode.OUT);
+
+            // Establecer los valores de los parámetros de entrada
+            storedProcedure.setParameter("v_tiempo", tiempo);
+            storedProcedure.setParameter("v_terminado", "N"); // Establece el valor predeterminado para 'terminado'
+            storedProcedure.setParameter("v_ip", ip_source);
+            storedProcedure.setParameter("v_fecha_hora_presentacion", fecha_hora_presentacion);
+            storedProcedure.setParameter("v_id_examen", id_examen);
+            storedProcedure.setParameter("v_id_alumno", id_alumno);
+
+            // Ejecutar el procedimiento almacenado
+            storedProcedure.execute();
+
+            // Obtener el valor del parámetro de salida
+            String mensaje = (String) storedProcedure.getOutputParameterValue("v_mensaje");
+
+            // Retornar el mensaje
+            return mensaje;
+        }
 
 
 }

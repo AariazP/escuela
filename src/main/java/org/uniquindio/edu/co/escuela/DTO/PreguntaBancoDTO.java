@@ -8,5 +8,6 @@ public record PreguntaBancoDTO(
         String tipo_pregunta,
         Long id_tema,
         Long id_docente
+
 ) {
 }
