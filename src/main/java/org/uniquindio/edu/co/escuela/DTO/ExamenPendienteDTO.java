@@ -1,10 +1,14 @@
 package org.uniquindio.edu.co.escuela.DTO;
 
-import java.util.Date;
-
 public record ExamenPendienteDTO(
-        String nombreExamen,
-        String fecha,
-        Integer idExamen
+        Integer id_examen,
+        String tiempo_max,
+        Integer numero_preguntas,
+        Integer porcentaje_aprobatorio,
+        String nombre,
+        Integer porcentaje_curso,
+        String fecha_hora_inicio,
+        String fecha_hora_fin,
+        String tema
 ) {
 }

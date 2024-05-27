@@ -164,21 +164,29 @@ public class AlumnoServiceImp implements AlumnoService {
 
     @Override
     public List<ExamenPendienteDTO> obtenerExamenesPendiente(String id, Integer idGrupo) {
-        ArrayList<ExamenPendienteDTO> examenes = new ArrayList<>();
-        examenes.add(new ExamenPendienteDTO("PL/SQL", new Date().toString().split("T")[0], 1));
-        examenes.add(new ExamenPendienteDTO("Java", new Date().toString().split("T")[0], 2));
-        examenes.add(new ExamenPendienteDTO("Python", new Date().toString().split("T")[0], 3));
+        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_examenes_grupo_pendientes_por_alumno");
 
-        return examenes;
+        // Registrar los parámetros de entrada y salida del procedimiento almacenado
+        storedProcedure.registerStoredProcedureParameter("p_id_alumno", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("p_id_grupo", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
+
+        // Establecer los valores de los parámetros de entrada
+        storedProcedure.setParameter("p_id_alumno", Integer.parseInt(id));
+        storedProcedure.setParameter("p_id_grupo", idGrupo);
+
+        // Ejecutar el procedimiento almacenado
+        storedProcedure.execute();
+
+        String json1 = (String) storedProcedure.getOutputParameterValue("res");
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<ExamenPendienteDTO>>() {}.getType();
+        return gson.fromJson(json1, personListType);
     }
 
     @Override
     public List<ExamenHechoDTO> obtenerExamenesHechos(String id, Integer idGrupo) {
         // Crear una consulta para el procedimiento almacenado
-
-        System.out.println("id = " + id);
-        System.out.println("idGrupo = " + idGrupo);
-
 
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("GET_PRESENTACION_EXAMEN_ALUMNO_GRUPO");
 
@@ -195,7 +203,6 @@ public class AlumnoServiceImp implements AlumnoService {
         storedProcedure.execute();
 
         String json1 = (String) storedProcedure.getOutputParameterValue("res");
-        System.out.println("json1 = " + json1);
         Gson gson = new Gson();
         Type personListType = new TypeToken<List<ExamenHechoDTO>>() {}.getType();
         return gson.fromJson(json1, personListType);
