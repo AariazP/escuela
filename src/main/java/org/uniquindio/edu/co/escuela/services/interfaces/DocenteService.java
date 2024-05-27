@@ -29,5 +29,7 @@ public interface DocenteService {
 
     List <ExamenDTO> obtenerExamenesDocente (Long id_docente);
 
+    String obtenerNombre(String id, String rol);
+
 
 }

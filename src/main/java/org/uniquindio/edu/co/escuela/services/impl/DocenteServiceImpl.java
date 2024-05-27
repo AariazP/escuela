@@ -223,6 +223,29 @@ public class DocenteServiceImpl implements DocenteService {
         );
     }
 
+    @Override
+    public String obtenerNombre(String id, String rol) {
+        // Crear una consulta para el procedimiento almacenado
+        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_nombre_usuario");
+
+        // Registrar los parámetros de entrada y salida del procedimiento almacenado
+        storedProcedure.registerStoredProcedureParameter("p_id_usuario", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("rol", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
+
+        // Establecer los valores de los parámetros de entrada
+        storedProcedure.setParameter("p_id_usuario", id);
+        storedProcedure.setParameter("rol", "alumno");
+
+        // Ejecutar el procedimiento almacenado
+        storedProcedure.execute();
+
+        String nombre = (String) storedProcedure.getOutputParameterValue("res");
+
+        return nombre;
+
+    }
+
 
 
 

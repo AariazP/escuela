@@ -40,13 +40,11 @@ public class DocenteController {
                 nombre, porcentaje_aprobatorio, fecha_hora_inicio, fecha_hora_fin, num_preguntas_aleatorias, id_tema, id_docente, id_grupo)));
     }
 
-
     @PostMapping("/crearPregunta")
     public ResponseEntity<MensajeDTO<String>> crearPregunta(@RequestBody String enunciado, Character es_publica, String tipoPregunta,
                                                             Integer id_tema, Integer id_docente) {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.crearPregunta(enunciado,es_publica,tipoPregunta,id_tema,id_docente)));
     }
-
 
     @PostMapping("/calificarExamen")
     public ResponseEntity<MensajeDTO<String>> calificarExamen(@RequestBody   Long id_presentacion_examen) {
@@ -64,6 +62,9 @@ public class DocenteController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.obtenerExamenesDocente(id_docente)));
     }
 
-
+    @GetMapping("/nombre/{id}/{rol}")
+    public ResponseEntity<MensajeDTO<String>> obtenerNombre(@PathVariable String id, @PathVariable String rol) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.obtenerNombre(id, rol)));
+    }
 
 }
