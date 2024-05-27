@@ -210,7 +210,7 @@ public class DocenteServiceImpl implements DocenteService {
                 rs.getInt("id_examen"),
                 rs.getInt("tiempo_max"),
                 rs.getInt("numero_preguntas"),
-                rs.getInt("porcentajeCurso"),
+                rs.getInt("porcentaje_curso"),
                 rs.getString("nombre"),
                 rs.getInt("porcentaje_aprobatorio"),
                 rs.getDate("fecha_hora_inicio"),
