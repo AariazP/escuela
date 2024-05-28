@@ -3,6 +3,7 @@ package org.uniquindio.edu.co.escuela.services.interfaces;
 import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
 import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
+import org.uniquindio.edu.co.escuela.DTO.TemasCursoDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -34,5 +35,6 @@ public interface DocenteService {
 
     List<CursoDTO> obtenerCursos(String id, String rol);
 
+    List<TemasCursoDTO> obtenerTemasCurso(Integer id_curso);
 
 }
