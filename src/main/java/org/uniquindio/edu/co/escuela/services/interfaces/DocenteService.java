@@ -1,9 +1,6 @@
 package org.uniquindio.edu.co.escuela.services.interfaces;
 
-import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
-import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
-import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
-import org.uniquindio.edu.co.escuela.DTO.TemasCursoDTO;
+import org.uniquindio.edu.co.escuela.DTO.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,10 +13,7 @@ public interface DocenteService {
 
     String crearRespuesta (String descripcion, Character esVerdadera, Long id_pregunta );
 
-    String crearExamen (Integer tiempo_max, Integer numero_preguntas,
-                        Integer porcentajeCurso, String nombre, Integer porcentaje_aprobatorio,
-                        Date fecha_hora_inicio, Date fecha_hora_fin, Integer num_preguntas_aleatorias,
-                        Integer id_tema, Integer id_docente, Integer id_grupo);
+    String crearExamen (CrearExamenDTO examenDTO);
 
     String crearPregunta (String enunciado, Character es_publica, String tipoPregunta,
                           Integer id_tema, Integer id_docente);

@@ -30,12 +30,8 @@ public class DocenteController {
     }
 
     @PostMapping("/crearExamen")
-    public ResponseEntity<MensajeDTO<String>> crearExamen(@RequestBody Integer tiempo_max, Integer numero_preguntas,
-                                                          Integer porcentajeCurso, String nombre, Integer porcentaje_aprobatorio,
-                                                          java.util.Date fecha_hora_inicio, Date fecha_hora_fin, Integer num_preguntas_aleatorias,
-                                                          Integer id_tema, Integer id_docente, Integer id_grupo) {
-        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.crearExamen(tiempo_max,numero_preguntas,porcentajeCurso,
-                nombre, porcentaje_aprobatorio, fecha_hora_inicio, fecha_hora_fin, num_preguntas_aleatorias, id_tema, id_docente, id_grupo)));
+    public ResponseEntity<MensajeDTO<String>> crearExamen(@RequestBody CrearExamenDTO examenDTO) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.crearExamen(examenDTO)));
     }
 
     @PostMapping("/crearPregunta")

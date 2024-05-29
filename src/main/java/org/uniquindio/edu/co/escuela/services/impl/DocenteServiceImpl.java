@@ -15,10 +15,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
-import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
-import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
-import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
-import org.uniquindio.edu.co.escuela.DTO.TemasCursoDTO;
+import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.DocenteService;
 
 import java.lang.reflect.Type;
@@ -83,7 +80,9 @@ public class DocenteServiceImpl implements DocenteService {
 
     @Override
     @Transactional
-    public String crearExamen(Integer tiempoMax, Integer numeroPreguntas, Integer porcentajeCurso, String nombre, Integer porcentajeAprobatorio, Date fechaHoraInicio, Date fechaHoraFin, Integer numPreguntasAleatorias, Integer idTema, Integer idDocente, Integer idGrupo) {
+    public String crearExamen(CrearExamenDTO examenDTO) {
+
+        System.out.println("examenDTO = " + examenDTO);
         // Crear una consulta para el procedimiento almacenado
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("crear_examen");
 
@@ -100,19 +99,19 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.registerStoredProcedureParameter("v_id_docente", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_id_grupo", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_mensaje", String.class, ParameterMode.OUT);
-
+        storedProcedure.registerStoredProcedureParameter("v_error", String.class, ParameterMode.OUT);
         // Establecer los valores de los parámetros de entrada
-        storedProcedure.setParameter("v_tiempo_max", tiempoMax);
-        storedProcedure.setParameter("v_numero_preguntas", numeroPreguntas);
-        storedProcedure.setParameter("v_porcentaje_curso", porcentajeCurso);
-        storedProcedure.setParameter("v_nombre", nombre);
-        storedProcedure.setParameter("v_porcenjate_aprobatorio", porcentajeAprobatorio);
-        storedProcedure.setParameter("v_fecha_hora_inicio", fechaHoraInicio);
-        storedProcedure.setParameter("v_fecha_hora_fin", fechaHoraFin);
-        storedProcedure.setParameter("v_num_preguntas_aleatorias", numPreguntasAleatorias);
-        storedProcedure.setParameter("v_id_tema", idTema);
-        storedProcedure.setParameter("v_id_docente", idDocente);
-        storedProcedure.setParameter("v_id_grupo", idGrupo);
+        storedProcedure.setParameter("v_tiempo_max", examenDTO.tiempo_max());
+        storedProcedure.setParameter("v_numero_preguntas", examenDTO.numero_preguntas());
+        storedProcedure.setParameter("v_porcentaje_curso", examenDTO.porcentajeCurso());
+        storedProcedure.setParameter("v_nombre", examenDTO.nombre());
+        storedProcedure.setParameter("v_porcenjate_aprobatorio", examenDTO.porcentaje_aprobatorio());
+        storedProcedure.setParameter("v_fecha_hora_inicio", new Date (examenDTO.fecha_hora_inicio().toString().split(" ")[2]+"-" + examenDTO.fecha_hora_inicio().toString().split(" ")[1]+"-"+"24"));
+        storedProcedure.setParameter("v_fecha_hora_fin", new Date( examenDTO.fecha_hora_fin().toString().split(" ")[2]+"-" + examenDTO.fecha_hora_fin().toString().split(" ")[1]+"-"+"24"));
+        storedProcedure.setParameter("v_num_preguntas_aleatorias", examenDTO.num_preguntas_aleatorias());
+        storedProcedure.setParameter("v_id_tema", examenDTO.id_tema());
+        storedProcedure.setParameter("v_id_docente", examenDTO.id_docente());
+        storedProcedure.setParameter("v_id_grupo", examenDTO.id_grupo());
 
         // Ejecutar el procedimiento almacenado
         storedProcedure.execute();
@@ -282,17 +281,17 @@ public class DocenteServiceImpl implements DocenteService {
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_temas_por_curso");
 
         // Registrar los parámetros de entrada y salida del procedimiento almacenado
-        storedProcedure.registerStoredProcedureParameter("p_id_curso", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("p_id_grupo", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
 
         // Establecer los valores de los parámetros de entrada
-        storedProcedure.setParameter("p_id_curso", id_grupo);
+        storedProcedure.setParameter("p_id_grupo", id_grupo);
 
         // Ejecutar el procedimiento almacenado
         storedProcedure.execute();
 
         String json1 = (String) storedProcedure.getOutputParameterValue("res");
-
+        System.out.println("json1 = " + json1);
         Gson gson = new Gson();
         Type personListType = new TypeToken<List<TemasCursoDTO>>() {}.getType();
 
