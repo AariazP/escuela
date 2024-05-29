@@ -91,9 +91,9 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.registerStoredProcedureParameter("v_numero_preguntas", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_porcentaje_curso", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_nombre", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("v_porcenjate_aprobatorio", Integer.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("v_fecha_hora_inicio", Date.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("v_fecha_hora_fin", Date.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("v_porcentaje_aprobatorio", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("v_fecha_hora_inicio", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("v_fecha_hora_fin", String.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_num_preguntas_aleatorias", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_id_tema", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_id_docente", Integer.class, ParameterMode.IN);
@@ -105,9 +105,21 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.setParameter("v_numero_preguntas", examenDTO.numero_preguntas());
         storedProcedure.setParameter("v_porcentaje_curso", examenDTO.porcentajeCurso());
         storedProcedure.setParameter("v_nombre", examenDTO.nombre());
-        storedProcedure.setParameter("v_porcenjate_aprobatorio", examenDTO.porcentaje_aprobatorio());
-        storedProcedure.setParameter("v_fecha_hora_inicio", new Date (examenDTO.fecha_hora_inicio().toString().split(" ")[2]+"-" + examenDTO.fecha_hora_inicio().toString().split(" ")[1]+"-"+"24"));
-        storedProcedure.setParameter("v_fecha_hora_fin", new Date( examenDTO.fecha_hora_fin().toString().split(" ")[2]+"-" + examenDTO.fecha_hora_fin().toString().split(" ")[1]+"-"+"24"));
+        storedProcedure.setParameter("v_porcentaje_aprobatorio", examenDTO.porcentaje_aprobatorio());
+
+
+        //TO_DATE('2024-05-15 09:00:00', 'YYYY-MM-DD HH24:MI:SS')
+        String[] itemsFechaInicio = examenDTO.fecha_hora_inicio().toString().split(" ");
+        String fechaInicio = itemsFechaInicio[itemsFechaInicio.length-1]+"-"+"05"+"-"+itemsFechaInicio[2]+" "+itemsFechaInicio[3];
+        String[] itemsFechaFin = examenDTO.fecha_hora_fin().toString().split(" ");
+        String fechaFin = itemsFechaFin[itemsFechaFin.length-1]+"-"+"05"+"-"+itemsFechaFin[2]+" "+itemsFechaFin[3];
+
+        System.out.println("fechaFin = " + fechaFin);
+        System.out.println("fechaInicio = " + fechaInicio);
+
+        storedProcedure.setParameter("v_fecha_hora_inicio", fechaInicio);
+        storedProcedure.setParameter("v_fecha_hora_fin", fechaFin);
+
         storedProcedure.setParameter("v_num_preguntas_aleatorias", examenDTO.num_preguntas_aleatorias());
         storedProcedure.setParameter("v_id_tema", examenDTO.id_tema());
         storedProcedure.setParameter("v_id_docente", examenDTO.id_docente());
