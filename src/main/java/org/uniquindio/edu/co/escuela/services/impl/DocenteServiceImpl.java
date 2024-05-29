@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
+import jakarta.persistence.Query;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.*;
+import org.uniquindio.edu.co.escuela.entities.Examen;
+import org.uniquindio.edu.co.escuela.repositories.ExamenRepository;
 import org.uniquindio.edu.co.escuela.services.interfaces.DocenteService;
 
 import java.lang.reflect.Type;
@@ -26,12 +29,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class DocenteServiceImpl implements DocenteService {
 
     private final EntityManager entityManager;
+    @Autowired
+    private final ExamenRepository examenRepository;
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -83,9 +90,6 @@ public class DocenteServiceImpl implements DocenteService {
     @Override
     @Transactional
     public String crearExamen(CrearExamenDTO examenDTO) throws ParseException {
-
-        System.out.println("examenDTO = " + examenDTO);
-
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("crear_examen");
 
         storedProcedure.registerStoredProcedureParameter("v_tiempo_max", Integer.class, ParameterMode.IN);
@@ -115,12 +119,8 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.setParameter("v_id_tema", examenDTO.id_tema());
         storedProcedure.setParameter("v_id_docente", examenDTO.id_docente());
         storedProcedure.setParameter("v_id_grupo", examenDTO.id_grupo());
-
-        storedProcedure.execute();
-
-        String mensaje = (String) storedProcedure.getOutputParameterValue("v_mensaje");
-
-        return mensaje;
+                                                                                                                                                                                                                                                                                                                                                             examenRepository.save(new Examen(null, examenDTO.tiempo_max(), examenDTO.numero_preguntas(), examenDTO.porcentajeCurso(), examenDTO.nombre(), examenDTO.porcentaje_aprobatorio(),examenDTO.fecha_hora_inicio(), examenDTO.fecha_hora_fin(), examenDTO.num_preguntas_aleatorias(),examenDTO.id_tema(), examenDTO.id_docente(), examenDTO.id_grupo()));
+        return "Examen creado exitosamente";
     }
 
     @Override
@@ -275,6 +275,7 @@ public class DocenteServiceImpl implements DocenteService {
         return gson.fromJson(json1, personListType);
     }
 
+
     @Override
     public List<TemasCursoDTO> obtenerTemasCurso(Integer id_grupo) {
         // Crear una consulta para el procedimiento almacenado
@@ -295,6 +296,14 @@ public class DocenteServiceImpl implements DocenteService {
         Type personListType = new TypeToken<List<TemasCursoDTO>>() {}.getType();
 
         return gson.fromJson(json1, personListType);
+    }
+
+    @Override
+    public List<TemasCursoDTO> obtenerTemasDocente() {
+        List<Object[]> resultados = examenRepository.obtenerCursos();
+        return resultados.stream()
+                .map(fila -> new TemasCursoDTO(""+fila[0], (String) fila[1]))
+                .collect(Collectors.toList());
     }
 
 

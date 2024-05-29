@@ -32,4 +32,6 @@ public interface DocenteService {
 
     List<TemasCursoDTO> obtenerTemasCurso(Integer id_curso);
 
+    List<TemasCursoDTO> obtenerTemasDocente();
+
 }
