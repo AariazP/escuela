@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.DocenteService;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class DocenteController {
     }
 
     @PostMapping("/crearExamen")
-    public ResponseEntity<MensajeDTO<String>> crearExamen(@RequestBody CrearExamenDTO examenDTO) {
+    public ResponseEntity<MensajeDTO<String>> crearExamen(@RequestBody CrearExamenDTO examenDTO) throws ParseException {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.crearExamen(examenDTO)));
     }
 

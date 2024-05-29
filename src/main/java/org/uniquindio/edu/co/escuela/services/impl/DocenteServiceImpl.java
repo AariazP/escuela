@@ -21,6 +21,8 @@ import org.uniquindio.edu.co.escuela.services.interfaces.DocenteService;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,13 +82,12 @@ public class DocenteServiceImpl implements DocenteService {
 
     @Override
     @Transactional
-    public String crearExamen(CrearExamenDTO examenDTO) {
+    public String crearExamen(CrearExamenDTO examenDTO) throws ParseException {
 
         System.out.println("examenDTO = " + examenDTO);
-        // Crear una consulta para el procedimiento almacenado
+
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("crear_examen");
 
-        // Registrar los parámetros de entrada y salida del procedimiento almacenado
         storedProcedure.registerStoredProcedureParameter("v_tiempo_max", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_numero_preguntas", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_porcentaje_curso", Integer.class, ParameterMode.IN);
@@ -100,38 +101,25 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.registerStoredProcedureParameter("v_id_grupo", Integer.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("v_mensaje", String.class, ParameterMode.OUT);
         storedProcedure.registerStoredProcedureParameter("v_error", String.class, ParameterMode.OUT);
-        // Establecer los valores de los parámetros de entrada
+
         storedProcedure.setParameter("v_tiempo_max", examenDTO.tiempo_max());
         storedProcedure.setParameter("v_numero_preguntas", examenDTO.numero_preguntas());
         storedProcedure.setParameter("v_porcentaje_curso", examenDTO.porcentajeCurso());
         storedProcedure.setParameter("v_nombre", examenDTO.nombre());
         storedProcedure.setParameter("v_porcentaje_aprobatorio", examenDTO.porcentaje_aprobatorio());
 
-
-        //TO_DATE('2024-05-15 09:00:00', 'YYYY-MM-DD HH24:MI:SS')
-        String[] itemsFechaInicio = examenDTO.fecha_hora_inicio().toString().split(" ");
-        String fechaInicio = itemsFechaInicio[itemsFechaInicio.length-1]+"-"+"05"+"-"+itemsFechaInicio[2]+" "+itemsFechaInicio[3];
-        String[] itemsFechaFin = examenDTO.fecha_hora_fin().toString().split(" ");
-        String fechaFin = itemsFechaFin[itemsFechaFin.length-1]+"-"+"05"+"-"+itemsFechaFin[2]+" "+itemsFechaFin[3];
-
-        System.out.println("fechaFin = " + fechaFin);
-        System.out.println("fechaInicio = " + fechaInicio);
-
-        storedProcedure.setParameter("v_fecha_hora_inicio", fechaInicio);
-        storedProcedure.setParameter("v_fecha_hora_fin", fechaFin);
+        storedProcedure.setParameter("v_fecha_hora_inicio", examenDTO.fecha_hora_inicio());
+        storedProcedure.setParameter("v_fecha_hora_fin", examenDTO.fecha_hora_fin());
 
         storedProcedure.setParameter("v_num_preguntas_aleatorias", examenDTO.num_preguntas_aleatorias());
         storedProcedure.setParameter("v_id_tema", examenDTO.id_tema());
         storedProcedure.setParameter("v_id_docente", examenDTO.id_docente());
         storedProcedure.setParameter("v_id_grupo", examenDTO.id_grupo());
 
-        // Ejecutar el procedimiento almacenado
         storedProcedure.execute();
 
-        // Obtener el valor del parámetro de salida
         String mensaje = (String) storedProcedure.getOutputParameterValue("v_mensaje");
 
-        // Retornar el mensaje
         return mensaje;
     }
 
@@ -303,7 +291,6 @@ public class DocenteServiceImpl implements DocenteService {
         storedProcedure.execute();
 
         String json1 = (String) storedProcedure.getOutputParameterValue("res");
-        System.out.println("json1 = " + json1);
         Gson gson = new Gson();
         Type personListType = new TypeToken<List<TemasCursoDTO>>() {}.getType();
 

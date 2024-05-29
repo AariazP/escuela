@@ -2,6 +2,7 @@ package org.uniquindio.edu.co.escuela.services.interfaces;
 
 import org.uniquindio.edu.co.escuela.DTO.*;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface DocenteService {
 
     String crearRespuesta (String descripcion, Character esVerdadera, Long id_pregunta );
 
-    String crearExamen (CrearExamenDTO examenDTO);
+    String crearExamen (CrearExamenDTO examenDTO) throws ParseException;
 
     String crearPregunta (String enunciado, Character es_publica, String tipoPregunta,
                           Integer id_tema, Integer id_docente);
